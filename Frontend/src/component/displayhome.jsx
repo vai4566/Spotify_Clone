@@ -36,7 +36,7 @@ export default function Displayhome() {
                 key={album._id}
                 className="group w-40 p-2 rounded-lg hover:bg-neutral-800 transition-all duration-300 cursor-pointer"
               >
-                <div className="relative w-36 h-36 overflow-hidden rounded-lg">
+                <div className="relative w-36 h-36 overflow-hidden rounded-md">
                   <img
                     src={album.image}
                     alt={album.name}

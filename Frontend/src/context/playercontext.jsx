@@ -1,10 +1,15 @@
 import { createContext, useRef, useState, useEffect } from "react";
 //import { songsData } from "../assets/data";
 import axios from "axios"
+import { useContext } from "react";
+import { UserContext } from "./usercontext";
 
 export const PlayerContext = createContext(null);
 
 export default function PlayerContextProvider({ children }) {
+
+    const { loggedIn, userData } = useContext(UserContext);
+
     const [currentSong, setCurrentSong] = useState(null);
     const [duration, setDuration] = useState(0);
     const [currentTime, setCurrentTime] = useState(0);
@@ -13,15 +18,19 @@ export default function PlayerContextProvider({ children }) {
     const [songsData, setSongsData]=useState([])
     const [albumsData, setAlbumsData]=useState([])
     const audioRef = useRef(null);
-    useEffect(() => {
-        if (!audioRef.current) return;
 
-        audioRef.current.onloadedmetadata = () => {
-            setDuration(audioRef.current.duration);
+
+    useEffect(() => {
+        const audio = audioRef.current;
+
+        if (!audio) return;
+
+        audio.onloadedmetadata = () => {
+            setDuration(audio.duration);
         };
 
-        audioRef.current.ontimeupdate = () => {
-            setCurrentTime(audioRef.current.currentTime);
+        audio.ontimeupdate = () => {
+            setCurrentTime(audio.currentTime);
         };
     }, [currentSong]);
 
@@ -31,6 +40,40 @@ export default function PlayerContextProvider({ children }) {
         }
     }, [volume]);
 
+
+    useEffect(() => {
+    if (!currentSong || !userData?._id) return;
+
+    localStorage.setItem(
+        `lastPlayedSong_${userData._id}`,
+        JSON.stringify({
+            song: currentSong,
+            currentTime: currentTime
+        })
+    );
+}, [currentSong, currentTime, userData]);
+
+ useEffect(() => {
+
+        if (!loggedIn || !userData?._id) return;
+
+        const saved = localStorage.getItem(
+            `lastPlayedSong_${userData._id}`
+        );
+
+        if (!saved) return;
+
+        const data = JSON.parse(saved);
+
+        setCurrentSong(data.song);
+
+        setTimeout(() => {
+            if (audioRef.current) {
+                audioRef.current.currentTime = data.currentTime;
+            }
+        }, 500);
+
+    }, [loggedIn, userData]);
 
     const playSong = (song) => {
         setCurrentSong(song);

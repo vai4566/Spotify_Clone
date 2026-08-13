@@ -5,10 +5,15 @@ import { PlayerContext } from "../context/playercontext.jsx";
 import { FaPlay, FaPause } from "react-icons/fa";
 import { LuClock3 } from "react-icons/lu";
 import { formatDuration } from "../utils/time.jsx"
-export default function Album() {
+import { UserContext } from "../context/usercontext.jsx";
+import { useNavigate } from "react-router-dom";
+
+export default function Album() { 
     const { id } = useParams();
 
-     const {
+    const navigate = useNavigate()
+
+    const {
         songsData,
         albumsData,
         isPlaying,
@@ -16,6 +21,8 @@ export default function Album() {
         play,
         pause,
     } = useContext(PlayerContext);
+
+    const { loggedIn } = useContext(UserContext)
 
     const album = albumsData.find((item) => item._id === id);
 
@@ -26,7 +33,7 @@ export default function Album() {
             </div>)
     }
 
-     const albumSongs = songsData.filter(
+    const albumSongs = songsData.filter(
         (song) => song.album === album?.name
     );
 
@@ -42,7 +49,7 @@ export default function Album() {
                 <img
                     src={album.image}
                     alt={album.name}
-                    className="w-28 h-28 rounded-md"
+                    className="w-28 h-28 rounded-lg"
                 />
 
                 <div>
@@ -63,13 +70,22 @@ export default function Album() {
             </div>
 
             {/* Play Pause Button */}
+
             <div className="mt-2">
                 <button className="w-10 h-10 ml-1 rounded-full bg-green-500 flex items-center justify-center hover:scale-105 transition"
-                onClick={isPlaying ? pause : play}>
-                    {isPlaying ? (<FaPause size={12} className="text-black text-lg flex items-center"/>
-                ):(
-                <FaPlay size={12} className="text-black text-lg flex items-center" />
-                )}
+                    onClick={() => {
+                        if (!loggedIn) {
+                            navigate("/login");
+                            return;
+                        }
+
+                        isPlaying ? pause() : play();
+                    }}
+                >
+                    {isPlaying ? (<FaPause size={12} className="text-black text-lg flex items-center" />
+                    ) : (
+                        <FaPlay size={12} className="text-black text-lg flex items-center" />
+                    )}
                 </button>
             </div>
 
@@ -88,7 +104,8 @@ export default function Album() {
             {albumSongs.map((song, index) => (
                 <div
                     key={song._id}
-                    onClick={() => playSong(song)}
+
+                    onClick={() => loggedIn ? playSong(song) : navigate('/login')}
                     className="grid grid-cols-[40px_1.8fr_1fr_1fr_60px] items-center py-1.5 hover:bg-neutral-800 rounded-md cursor-pointer gap-2"
                 >
                     <b className="mr-4 text-gray-400">{index + 1}</b>

@@ -60,7 +60,7 @@ const userlist =async (req, res) => {
             maxAge: 7 * 24 * 60 * 60 * 1000,
         });
         return res.status(200).json({ messsage: "user logged in successfully", user:{
-            username:user.username
+            name:user.name
         } ,})
 
     } catch (error) {
