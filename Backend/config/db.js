@@ -1,8 +1,8 @@
 const mongoose=require('mongoose')
 
-const uri=process.env.MONGO_URI
+const uri=process.env.MONGO_URI || "mongodb://localhost:27017/Spotify"
 
-const connectDB= ()=>{ 
- return mongoose.connect(uri)
+const connectDB= async ()=>{ 
+ await mongoose.connect(uri)
 }
  module.exports=connectDB

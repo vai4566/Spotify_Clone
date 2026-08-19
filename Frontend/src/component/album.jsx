@@ -8,7 +8,7 @@ import { formatDuration } from "../utils/time.jsx"
 import { UserContext } from "../context/usercontext.jsx";
 import { useNavigate } from "react-router-dom";
 
-export default function Album() { 
+export default function Album() {
     const { id } = useParams();
 
     const navigate = useNavigate()
@@ -102,40 +102,41 @@ export default function Album() {
 
             {/* Songs */}
             {albumSongs.map((song, index) => (
-                <div
-                    key={song._id}
 
-                    onClick={() => loggedIn ? playSong(song) : navigate('/login')}
-                    className="grid grid-cols-[40px_1.8fr_1fr_1fr_60px] items-center py-1.5 hover:bg-neutral-800 rounded-md cursor-pointer gap-2"
-                >
-                    <b className="mr-4 text-gray-400">{index + 1}</b>
+            <div
+                key={song._id}
 
-                    <div className="flex items-center gap-4">
-                        <img
-                            src={song.image}
-                            alt={song.name}
-                            className="inline w-8 rounded mr-5"
-                        />
+                onClick={() => loggedIn ? playSong(song) : navigate('/login')}
+                className="grid grid-cols-[40px_1.8fr_1fr_1fr_60px] items-center py-1.5 hover:bg-neutral-800 rounded-md cursor-pointer gap-2"
+            >
+                <b className="mr-4 text-gray-400">{index + 1}</b>
 
-                        <div>
-                            <h3 className="text-white text-xs">{song.name}</h3>
-                            <p className="text-gray-400 text-sm">{song.artist}</p>
-                        </div>
+                <div className="flex items-center gap-4">
+                    <img
+                        src={song.image}
+                        alt={song.name}
+                        className="inline w-8 rounded mr-5"
+                    />
+
+                    <div>
+                        <h3 className="text-white text-xs">{song.name}</h3>
+                        <p className="text-gray-400 text-sm">{song.artist}</p>
                     </div>
-
-                    <p className="text-gray-400 text-xs">
-                        {song.album}
-                    </p>
-                    <p className="text-gray-400 text-xs">
-                        12 days ago
-                    </p>
-
-                    <p className="text-gray-400 text-xs">
-                        {song.duration}
-                    </p>
                 </div>
-            ))
-            }
+
+                <p className="text-gray-400 text-xs">
+                    {song.album}
+                </p>
+                <p className="text-gray-400 text-xs">
+                    12 days ago
+                </p>
+
+                <p className="text-gray-400 text-xs">
+                    {song.duration}
+                </p>
+            </div>
+     
+            ))}
         </div >
     )
 }
