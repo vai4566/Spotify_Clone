@@ -139,7 +139,7 @@ export default function PlayerContextProvider({ children }) {
 
     const getSongsData=async(e)=>{
         try {
-            const response=await axios.get(`http://localhost:3000/song/list`)
+            const response=await axios.get(`https://spotify-clone-1-gy08.onrender.com/song/list`)
             setSongsData(response.data.songs)
             
         if (response.data.songs.length > 0) {
@@ -153,7 +153,7 @@ export default function PlayerContextProvider({ children }) {
 
     const getAlbumsData=async()=>{
         try {
-            const response=await axios.get(`http://localhost:3000/album/list`)
+            const response=await axios.get(`https://spotify-clone-1-gy08.onrender.com/album/list`)
             setAlbumsData(response.data.album)
         } catch (error) {
          

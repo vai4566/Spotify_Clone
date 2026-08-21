@@ -20,7 +20,7 @@ export default function AddAlbum() {
             formData.append('description', description)
             formData.append('bgcolor', colour)
 
-            const response = await axios.post("http://localhost:3000/album/add", formData)
+            const response = await axios.post("https://spotify-clone-1-gy08.onrender.com/album/add", formData)
             console.log(response.data);
 
             toast.success("album added sucessfully")

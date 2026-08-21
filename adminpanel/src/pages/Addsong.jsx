@@ -40,7 +40,7 @@ export default function AddSong() {
 
     const loadAlbumData = async () => {
         try {
-            const response = await axios.get("http://localhost:3000/album/list")
+            const response = await axios.get("https://spotify-clone-1-gy08.onrender.com/album/list")
             setAlbumData(response.data.album)
         } catch (error) {
             toast.error("error occured")

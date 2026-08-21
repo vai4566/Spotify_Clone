@@ -6,7 +6,7 @@ export default function ListAlbum(){
    const [data, setData] = useState([])
     const fetchAlbums = async () => {
         try {
-            const response = await axios.get("http://localhost:3000/album/list")
+            const response = await axios.get("https://spotify-clone-1-gy08.onrender.com/album/list")
             console.log(response.data);
             setData(response.data.album)
         } catch (error) {
@@ -17,7 +17,7 @@ export default function ListAlbum(){
     const removeAlbum = async (id) => {
          
         try {
-            const response = await axios.delete(`http://localhost:3000/album/remove/${id}`)
+            const response = await axios.delete(`https://spotify-clone-1-gy08.onrender.com/album/remove/${id}`)
             toast.success("Album is Deleted")
             await fetchAlbums()
         } catch (error) {

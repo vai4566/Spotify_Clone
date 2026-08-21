@@ -21,7 +21,7 @@ export default function Login() {
             password
         };
         try {
-            const response = await axios.post("http://localhost:3000/user/login", user)
+            const response = await axios.post("https://spotify-clone-1-gy08.onrender.com/user/login", user)
             console.log("USER:", response.data.user);
             console.log("USER KEYS:", Object.keys(response.data.user));
             setEmail("")

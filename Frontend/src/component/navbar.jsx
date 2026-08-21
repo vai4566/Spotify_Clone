@@ -19,7 +19,7 @@ export default function Navbar() {
 
   const logout = async () => {
     try {
-      const { data } = await axios.post("http://localhost:3000/user/logout")
+      const { data } = await axios.post("https://spotify-clone-1-gy08.onrender.com/user/logout")
       setLoggedIn(false)
       setUserData(null)
       navigate('/')

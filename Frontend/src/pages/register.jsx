@@ -20,7 +20,7 @@ export default function Register() {
             password
         };
         try {
-            const response = await axios.post("http://localhost:3000/user/register", user)
+            const response = await axios.post("https://spotify-clone-1-gy08.onrender.com/user/register", user)
             setName("")
             setEmail("")
             setPassword("")

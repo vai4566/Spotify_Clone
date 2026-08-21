@@ -6,7 +6,7 @@ export default function ListSong() {
     const [data, setData] = useState([])
     const fetchSongs = async () => {
         try {
-            const response = await axios.get("http://localhost:3000/song/list")
+            const response = await axios.get("https://spotify-clone-1-gy08.onrender.com/song/list")
             setData(response.data.songs)
         } catch (error) {
             toast.error("error occured")
@@ -15,7 +15,7 @@ export default function ListSong() {
 
     const removeSong = async (id) => {
         try {
-            const response = await axios.delete(`http://localhost:3000/song/remove/${id}`)
+            const response = await axios.delete(`https://spotify-clone-1-gy08.onrender.com/song/remove/${id}`)
             toast.success("Song is Deleted")
             await fetchSongs()
         } catch (error) {

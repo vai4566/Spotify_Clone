@@ -12,7 +12,7 @@ export default function UserContextProvider({ children }) {
 
     const getUserData = async () => {
         try {
-            const response = await axios.get("http://localhost:3000/user/list")
+            const response = await axios.get("https://spotify-clone-1-gy08.onrender.com/user/list")
             setUserData(response.data.userData)
         } catch (error) {
             toast.error(error.message)
