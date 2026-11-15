@@ -37,8 +37,7 @@ export default function Player() {
 
     const { loggedIn } = useContext(UserContext);
 
-    console.log("DURATION:", duration);
-    console.log("FORMATTED:", convertTime(duration));
+    
 
     if (!currentSong) {
         return null;

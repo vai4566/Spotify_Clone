@@ -147,7 +147,7 @@ export default function PlayerContextProvider({ children }) {
         }
 
         } catch (error) {
-            
+            console.error("Error fetching albums:", error);
         }
     }
 
@@ -156,7 +156,7 @@ export default function PlayerContextProvider({ children }) {
             const response=await axios.get(`https://spotify-clone-1-gy08.onrender.com/album/list`)
             setAlbumsData(response.data.album)
         } catch (error) {
-         
+         console.error("Error fetching albums:", error);
         }
     }
 
